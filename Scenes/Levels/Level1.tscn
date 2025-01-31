@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://djtfv14hync35"]
+
+[ext_resource type="PackedScene" uid="uid://bym46kytxu6ca" path="res://Scenes/Platform.tscn" id="1_ajdf6"]
+[ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_gmkya"]
+[ext_resource type="PackedScene" uid="uid://bn5s77v3rj75g" path="res://Scenes/Player.tscn" id="2_3s3f7"]
+[ext_resource type="PackedScene" uid="uid://pwu0c8e6otcf" path="res://Scenes/Buckets/RedBucket.tscn" id="3_0ucco"]
+[ext_resource type="PackedScene" uid="uid://d1ygxcitfd4nu" path="res://Scenes/Walls/RedWall.tscn" id="4_vdlxq"]
+[ext_resource type="PackedScene" uid="uid://ccwfnkbcpmvqh" path="res://Scenes/Exit.tscn" id="5_x7n8e"]
+[ext_resource type="PackedScene" uid="uid://3ihhivxbefxo" path="res://Scenes/Walls/BlueWall.tscn" id="7_6lxg7"]
+[ext_resource type="PackedScene" uid="uid://c1u71k6yaatl6" path="res://Scenes/Buckets/BlueBucket.tscn" id="7_fcs10"]
+[ext_resource type="PackedScene" uid="uid://cip32ogujaesg" path="res://Scenes/Mobs/Obstacle.tscn" id="9_qjgno"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_gmkya")
+
+[node name="Player" parent="." instance=ExtResource("2_3s3f7")]
+position = Vector2(169, 457)
+
+[node name="Exit" parent="." instance=ExtResource("5_x7n8e")]
+position = Vector2(58, 171)
+
+[node name="Platform1" parent="." instance=ExtResource("1_ajdf6")]
+position = Vector2(-263, 571)
+
+[node name="Platform2" parent="." instance=ExtResource("1_ajdf6")]
+position = Vector2(1219, 271)
+
+[node name="Platform3" parent="." instance=ExtResource("1_ajdf6")]
+position = Vector2(-184, 270)
+
+[node name="RedBucket" parent="." instance=ExtResource("3_0ucco")]
+position = Vector2(51, 511)
+
+[node name="RedWall" parent="." instance=ExtResource("4_vdlxq")]
+position = Vector2(517, 273)
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+
+[node name="BlueBucket" parent="." instance=ExtResource("7_fcs10")]
+position = Vector2(1098, 205)
+
+[node name="BlueWall1" parent="." instance=ExtResource("7_6lxg7")]
+position = Vector2(486, 441)
+rotation = 1.07687
+
+[node name="BlueWall2" parent="." instance=ExtResource("7_6lxg7")]
+position = Vector2(295, -10)
+
+[node name="Obstacle" parent="." instance=ExtResource("9_qjgno")]
+position = Vector2(911, 206)
+
+[connection signal="change_color" from="Player" to="RedWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="BlueWall1" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="BlueWall2" method="_on_player_change_color"]
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+[connection signal="body_entered" from="RedBucket" to="Player" method="_on_red_bucket_body_entered"]
+[connection signal="body_exited" from="RedBucket" to="Player" method="_on_red_bucket_body_exited"]
+[connection signal="body_entered" from="BlueBucket" to="Player" method="_on_blue_bucket_body_entered"]
+[connection signal="body_exited" from="BlueBucket" to="Player" method="_on_blue_bucket_body_exited"]
+[connection signal="body_entered" from="Obstacle" to="Player" method="_on_obstacle_body_entered"]

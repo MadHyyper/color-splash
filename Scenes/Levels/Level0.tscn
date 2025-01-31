@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://b20vh2cjlgd1l"]
+
+[ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_5a6lm"]
+[ext_resource type="PackedScene" uid="uid://bn5s77v3rj75g" path="res://Scenes/Player.tscn" id="2_rw5cj"]
+[ext_resource type="PackedScene" uid="uid://pwu0c8e6otcf" path="res://Scenes/Buckets/RedBucket.tscn" id="3_6bh36"]
+[ext_resource type="PackedScene" uid="uid://d1ygxcitfd4nu" path="res://Scenes/Walls/RedWall.tscn" id="4_1r4bl"]
+[ext_resource type="PackedScene" uid="uid://c1u71k6yaatl6" path="res://Scenes/Buckets/BlueBucket.tscn" id="5_bgagf"]
+[ext_resource type="PackedScene" uid="uid://3ihhivxbefxo" path="res://Scenes/Walls/BlueWall.tscn" id="6_6xp5j"]
+[ext_resource type="PackedScene" uid="uid://bym46kytxu6ca" path="res://Scenes/Platform.tscn" id="7_gko0i"]
+[ext_resource type="PackedScene" uid="uid://ccwfnkbcpmvqh" path="res://Scenes/Exit.tscn" id="8_t7x1s"]
+[ext_resource type="PackedScene" uid="uid://cip32ogujaesg" path="res://Scenes/Mobs/Obstacle.tscn" id="9_gvci7"]
+
+[node name="Level0" type="Node2D"]
+script = ExtResource("1_5a6lm")
+
+[node name="Player" parent="." instance=ExtResource("2_rw5cj")]
+position = Vector2(100, 383)
+
+[node name="RedBucket" parent="." instance=ExtResource("3_6bh36")]
+position = Vector2(278, 429)
+
+[node name="RedWall" parent="." instance=ExtResource("4_1r4bl")]
+position = Vector2(377, 236)
+
+[node name="BlueBucket" parent="." instance=ExtResource("5_bgagf")]
+position = Vector2(560, 428)
+
+[node name="BlueWall" parent="." instance=ExtResource("6_6xp5j")]
+position = Vector2(721, 241)
+
+[node name="Platform" parent="." instance=ExtResource("7_gko0i")]
+position = Vector2(560, 487)
+
+[node name="Exit" parent="." instance=ExtResource("8_t7x1s")]
+position = Vector2(952, 394)
+
+[node name="Obstacle" parent="." instance=ExtResource("9_gvci7")]
+position = Vector2(815, 426)
+
+[connection signal="change_color" from="Player" to="RedWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="BlueWall" method="_on_player_change_color"]
+[connection signal="body_entered" from="RedBucket" to="Player" method="_on_red_bucket_body_entered"]
+[connection signal="body_exited" from="RedBucket" to="Player" method="_on_red_bucket_body_exited"]
+[connection signal="body_entered" from="BlueBucket" to="Player" method="_on_blue_bucket_body_entered"]
+[connection signal="body_exited" from="BlueBucket" to="Player" method="_on_blue_bucket_body_exited"]
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+[connection signal="body_entered" from="Obstacle" to="Player" method="_on_obstacle_body_entered"]

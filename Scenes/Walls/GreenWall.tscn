@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkw1m0842urtq"]
+
+[ext_resource type="Script" path="res://Scripts/Walls/GreenWall.gd" id="1_gb03p"]
+[ext_resource type="Texture2D" uid="uid://c3d52mqu4hn46" path="res://Sprites/Player.png" id="2_t1d3k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2a76"]
+size = Vector2(62, 501)
+
+[node name="GreenWall" type="StaticBody2D"]
+script = ExtResource("1_gb03p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.0448437, 0.356094)
+texture = ExtResource("2_t1d3k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_y2a76")

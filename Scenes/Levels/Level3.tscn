@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhrdys533yl2q"]
+
+[ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_p4v8c"]
+[ext_resource type="PackedScene" uid="uid://bym46kytxu6ca" path="res://Scenes/Platform.tscn" id="2_djo14"]
+[ext_resource type="PackedScene" uid="uid://3ihhivxbefxo" path="res://Scenes/Walls/BlueWall.tscn" id="3_15n40"]
+[ext_resource type="PackedScene" uid="uid://d1ygxcitfd4nu" path="res://Scenes/Walls/RedWall.tscn" id="4_wgyyl"]
+[ext_resource type="PackedScene" uid="uid://bkw1m0842urtq" path="res://Scenes/Walls/GreenWall.tscn" id="5_jt6km"]
+[ext_resource type="PackedScene" uid="uid://boef4sw7ltedr" path="res://Scenes/Buckets/GreenBucket.tscn" id="6_vslcl"]
+[ext_resource type="PackedScene" uid="uid://b86ch1qmpl5m4" path="res://Scenes/Buckets/OrangeBucket.tscn" id="8_3bp8r"]
+[ext_resource type="PackedScene" uid="uid://3k8kphf64d3e" path="res://Scenes/Walls/OrangeWall.tscn" id="9_lc231"]
+[ext_resource type="PackedScene" uid="uid://c1u71k6yaatl6" path="res://Scenes/Buckets/BlueBucket.tscn" id="10_5lkky"]
+[ext_resource type="PackedScene" uid="uid://ccwfnkbcpmvqh" path="res://Scenes/Exit.tscn" id="11_iurns"]
+[ext_resource type="PackedScene" uid="uid://bn5s77v3rj75g" path="res://Scenes/Player.tscn" id="12_ogax0"]
+
+[node name="Level3" type="Node2D"]
+position = Vector2(475, 200)
+script = ExtResource("1_p4v8c")
+
+[node name="Player" parent="." instance=ExtResource("12_ogax0")]
+position = Vector2(-236, 111)
+
+[node name="Platform" parent="." instance=ExtResource("2_djo14")]
+position = Vector2(-3, 213)
+
+[node name="BlueWall" parent="." instance=ExtResource("3_15n40")]
+position = Vector2(-77, 81)
+scale = Vector2(0.4, 0.4)
+
+[node name="RedWall" parent="." instance=ExtResource("4_wgyyl")]
+position = Vector2(-188, 29)
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+
+[node name="RedWall2" parent="." instance=ExtResource("4_wgyyl")]
+position = Vector2(-529, 103)
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+
+[node name="GreenWall" parent="." instance=ExtResource("5_jt6km")]
+z_index = -1
+position = Vector2(-280, 140)
+rotation = -6.28319
+scale = Vector2(0.4, 0.4)
+
+[node name="GreenBucket" parent="." instance=ExtResource("6_vslcl")]
+position = Vector2(-135, 153)
+
+[node name="OrangeBucket" parent="." instance=ExtResource("8_3bp8r")]
+position = Vector2(-75, -89)
+
+[node name="OrangeWall" parent="." instance=ExtResource("9_lc231")]
+position = Vector2(104, -70)
+
+[node name="BlueBucket" parent="." instance=ExtResource("10_5lkky")]
+position = Vector2(-20, 154)
+
+[node name="Exit" parent="." instance=ExtResource("11_iurns")]
+position = Vector2(446, 118)
+
+[connection signal="change_color" from="Player" to="BlueWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="RedWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="GreenWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="OrangeWall" method="_on_player_change_color"]
+[connection signal="body_entered" from="GreenBucket" to="Player" method="_on_green_bucket_body_entered"]
+[connection signal="body_exited" from="GreenBucket" to="Player" method="_on_green_bucket_body_exited"]
+[connection signal="body_entered" from="OrangeBucket" to="Player" method="_on_orange_bucket_body_entered"]
+[connection signal="body_exited" from="OrangeBucket" to="Player" method="_on_orange_bucket_body_exited"]
+[connection signal="body_entered" from="BlueBucket" to="Player" method="_on_blue_bucket_body_entered"]
+[connection signal="body_exited" from="BlueBucket" to="Player" method="_on_blue_bucket_body_exited"]
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]

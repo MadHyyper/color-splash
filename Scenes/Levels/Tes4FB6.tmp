@@ -1,0 +1,61 @@
+[gd_scene load_steps=13 format=3 uid="uid://b20vh2cjlgd1l"]
+
+[ext_resource type="PackedScene" uid="uid://bym46kytxu6ca" path="res://Scenes/Platform.tscn" id="1_7ey0j"]
+[ext_resource type="Script" path="res://Scenes/Levels/TestLevel.gd" id="1_mq48t"]
+[ext_resource type="PackedScene" uid="uid://bn5s77v3rj75g" path="res://Scenes/Player.tscn" id="2_qefc4"]
+[ext_resource type="PackedScene" uid="uid://d1ygxcitfd4nu" path="res://Scenes/Walls/RedWall.tscn" id="3_3faco"]
+[ext_resource type="PackedScene" uid="uid://pwu0c8e6otcf" path="res://Scenes/Buckets/RedBucket.tscn" id="4_g6mm5"]
+[ext_resource type="PackedScene" uid="uid://3ihhivxbefxo" path="res://Scenes/Walls/BlueWall.tscn" id="5_rstus"]
+[ext_resource type="PackedScene" uid="uid://c1u71k6yaatl6" path="res://Scenes/Buckets/BlueBucket.tscn" id="6_7q833"]
+[ext_resource type="Script" path="res://Scenes/Levels/Mob.gd" id="7_j113g"]
+[ext_resource type="Shader" path="res://Scenes/Levels/TestLevel.gdshader" id="8_rcka2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tn44e"]
+size = Vector2(43, 45)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0lg0t"]
+shader = ExtResource("8_rcka2")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vt4xl"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_mq48t")
+
+[node name="Player" parent="." instance=ExtResource("2_qefc4")]
+position = Vector2(141, 279)
+
+[node name="RedBucket" parent="." instance=ExtResource("4_g6mm5")]
+position = Vector2(262, 285)
+
+[node name="RedWall" parent="." instance=ExtResource("3_3faco")]
+position = Vector2(361, 92)
+
+[node name="BlueBucket" parent="." instance=ExtResource("6_7q833")]
+position = Vector2(544, 284)
+
+[node name="BlueWall" parent="." instance=ExtResource("5_rstus")]
+position = Vector2(705, 97)
+
+[node name="Platform" parent="." instance=ExtResource("1_7ey0j")]
+position = Vector2(544, 343)
+
+[node name="Mob" type="Area2D" parent="."]
+script = ExtResource("7_j113g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mob"]
+position = Vector2(879, 285)
+shape = SubResource("RectangleShape2D_tn44e")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Mob"]
+material = SubResource("ShaderMaterial_0lg0t")
+position = Vector2(878.563, 285)
+scale = Vector2(42.875, 47.5)
+mesh = SubResource("QuadMesh_vt4xl")
+
+[connection signal="change_color" from="Player" to="RedWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="BlueWall" method="_on_player_change_color"]
+[connection signal="body_entered" from="RedBucket" to="Player" method="_on_red_bucket_body_entered"]
+[connection signal="body_exited" from="RedBucket" to="Player" method="_on_red_bucket_body_exited"]
+[connection signal="body_entered" from="BlueBucket" to="Player" method="_on_blue_bucket_body_entered"]
+[connection signal="body_exited" from="BlueBucket" to="Player" method="_on_blue_bucket_body_exited"]
+[connection signal="body_entered" from="Mob" to="Mob" method="_on_body_entered"]

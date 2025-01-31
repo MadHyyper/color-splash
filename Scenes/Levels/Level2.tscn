@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://csfp3obi8eq4t"]
+
+[ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_cie08"]
+[ext_resource type="PackedScene" uid="uid://bym46kytxu6ca" path="res://Scenes/Platform.tscn" id="2_lakdc"]
+[ext_resource type="PackedScene" uid="uid://bn5s77v3rj75g" path="res://Scenes/Player.tscn" id="3_j513i"]
+[ext_resource type="PackedScene" uid="uid://dbdbfwww24mmq" path="res://Scenes/Walls/PurpleWall.tscn" id="4_ecjcg"]
+[ext_resource type="Script" path="res://Scripts/Walls/PurpleWall.gd" id="5_c78gi"]
+[ext_resource type="PackedScene" uid="uid://kktwefs2tffy" path="res://Scenes/Buckets/PurpleBucket.tscn" id="6_gsx7x"]
+[ext_resource type="PackedScene" uid="uid://ccwfnkbcpmvqh" path="res://Scenes/Exit.tscn" id="6_s1mh8"]
+[ext_resource type="PackedScene" uid="uid://pwu0c8e6otcf" path="res://Scenes/Buckets/RedBucket.tscn" id="7_ma08e"]
+
+[node name="Level2" type="Node2D"]
+position = Vector2(0, 2)
+script = ExtResource("1_cie08")
+
+[node name="Player" parent="." instance=ExtResource("3_j513i")]
+position = Vector2(46, 77)
+
+[node name="Platform" parent="." instance=ExtResource("2_lakdc")]
+position = Vector2(510, 180)
+
+[node name="Platform2" parent="." instance=ExtResource("2_lakdc")]
+position = Vector2(-308, 611)
+
+[node name="Platform3" parent="." instance=ExtResource("2_lakdc")]
+position = Vector2(1219, 613)
+
+[node name="PurpleWall" parent="." instance=ExtResource("4_ecjcg")]
+position = Vector2(1232, 181)
+rotation = 1.5708
+script = ExtResource("5_c78gi")
+
+[node name="PurpleWall2" parent="." instance=ExtResource("4_ecjcg")]
+position = Vector2(453, 612)
+rotation = 1.5708
+script = ExtResource("5_c78gi")
+
+[node name="Exit" parent="." instance=ExtResource("6_s1mh8")]
+position = Vector2(78, 514)
+
+[node name="PurpleBucket" parent="." instance=ExtResource("6_gsx7x")]
+position = Vector2(922, 115)
+
+[node name="RedBucket" parent="." instance=ExtResource("7_ma08e")]
+position = Vector2(459, 455)
+
+[connection signal="change_color" from="Player" to="PurpleWall" method="_on_player_change_color"]
+[connection signal="change_color" from="Player" to="PurpleWall2" method="_on_player_change_color"]
+[connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+[connection signal="body_entered" from="PurpleBucket" to="Player" method="_on_purple_bucket_body_entered"]
+[connection signal="body_exited" from="PurpleBucket" to="Player" method="_on_purple_bucket_body_exited"]
+[connection signal="body_entered" from="RedBucket" to="Player" method="_on_red_bucket_body_entered"]
+[connection signal="body_exited" from="RedBucket" to="Player" method="_on_red_bucket_body_exited"]

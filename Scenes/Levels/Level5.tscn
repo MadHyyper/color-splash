@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhpkcx6pp7ui5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iuq08"]
+font_size = 65
+
+[node name="Level5" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 315.0
+offset_top = 224.0
+offset_right = 789.0
+offset_bottom = 314.0
+text = "You win yippee"
+label_settings = SubResource("LabelSettings_iuq08")
